@@ -1,25 +1,23 @@
+import {getVie,setVie} from "./difficultyconf.js";
 
-
-export let vie = 100;
 
 
 export function LooseCondition() {
 
-  if (vie <= 0) {
-    console.log("Game Over! vie: " + vie);
-    
+  if (getVie() <= 0) {
+   
     }
   }
 
 export function PrintHealth() {
   const healthElement = document.getElementById("health");
-  healthElement.textContent = `VIE: ${vie}`;
+  healthElement.textContent = `VIE: ${getVie()}`;
 }
 
 
 export function EnemyCollision(scene,enemy,enemies, index) {
       
-  vie -= 10;
+  setVie(getVie() - 10);
 
   // enlever de la scène
   scene.remove(enemy.mesh);
@@ -32,6 +30,3 @@ export function EnemyCollision(scene,enemy,enemies, index) {
 
 
 
-export function damage(amount) {
-  vie -= amount;
-}

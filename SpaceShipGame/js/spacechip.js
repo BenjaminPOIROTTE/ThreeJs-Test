@@ -1,3 +1,4 @@
+import {getColorProjectiles} from "./difficultyconf.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import * as THREE from "three";
 
@@ -25,7 +26,7 @@ export function Spaceship(scene) {
       spaceship = gltf.scene;
 
       scene.add(spaceship);
-
+      spaceship.scale.set(0.2, 0.2,0.2);
       //Bounding box pour le vaisseau
       spaceshipBBox = new THREE.Box3().setFromObject(spaceship);
       spaceshipHelper = new THREE.Box3Helper(spaceshipBBox, 0x00ff00);
@@ -70,15 +71,13 @@ export function addCameraFollow(camera, spaceship) {
 
 
 
-
-
 export function CreateProjectile(scene) {
   let geometry = new THREE.SphereGeometry(0.2, 16, 16);
-  let material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+  let material = new THREE.MeshBasicMaterial({ color: getColorProjectiles() });
 
   projectile = new THREE.Mesh(geometry, material);
 
-  const direction = new THREE.Vector3(0, 0, 4);
+  const direction = new THREE.Vector3(0, 0,0);
 
 
 
@@ -87,7 +86,7 @@ export function CreateProjectile(scene) {
 // Positionne le projectile devant le vaisseau
   projectile.position
     .copy(spaceship.position)
-    .addScaledVector(direction,1);
+    .addScaledVector(direction,0.1);
 
 
 
@@ -107,10 +106,8 @@ export function updateProjectile(scene, delta = 1) {
 
     p.position.addScaledVector(direction, 5);
 
-    // 👇 augmente le temps de vie
     p.userData.life += delta;
 
-    // 👇 suppression propre
     if (p.userData.life > 60) {
       scene.remove(p);
       projectileMeshes.splice(i, 1);

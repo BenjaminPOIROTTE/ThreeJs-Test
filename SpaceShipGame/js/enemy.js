@@ -1,13 +1,29 @@
 import * as THREE from "three";
-
+import { getEnemySpeed } from "./difficultyconf.js";
 
 export class Enemy {
+
+  
    constructor(scene) {
     this.scene = scene;
+
+
+
+    
+
 
     const geometry = new THREE.BoxGeometry(2, 2, 2);
     const material = new THREE.MeshStandardMaterial({ color: 0xff0000 });
       
+    
+
+
+
+
+
+
+
+
 
 
     this.mesh = new THREE.Mesh(geometry, material);
@@ -18,7 +34,7 @@ export class Enemy {
       -50
     );
 
-    this.speed = 0.5;
+    this.speed = getEnemySpeed();
     this.bbox = new THREE.Box3().setFromObject(this.mesh);
 //debug
     this.helper = new THREE.Box3Helper(this.bbox, 0x00ff00);

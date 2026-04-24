@@ -1,15 +1,15 @@
 import { Enemy } from "./enemy.js";
+import { getSpeedSpawn, getWaveSpawn } from "./difficultyconf.js";
 
 export function startEnemySpawner(scene, enemies, spaceship) {
 
   setInterval(() => {
 
-    if (enemies.length < 5) {
-      for (let i = 0; i < 5; i++) {
+    if (enemies.length < getWaveSpawn()) {
+      for (let i = 0; i < getWaveSpawn(); i++) {
         enemies.push(new Enemy(scene));
       }
-      console.log("Enemies spawned");
     }
 
-  }, 2000);
+  }, getSpeedSpawn());
 }

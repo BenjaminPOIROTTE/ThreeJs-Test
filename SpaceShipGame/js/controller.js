@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { spaceship } from "./spacechip.js";
 import { CreateProjectile, updateProjectile } from "./spacechip.js";
-
+import { GetPlayerSpeed } from "./difficultyconf.js";
 
 
 
@@ -52,16 +52,17 @@ export function updateMovement(scene) {
 
   spaceship.position.addScaledVector(direction, 0.1);
 
-  if (keys.forward) spaceship.rotation.x += 0.01;
-  if (keys.backward) spaceship.rotation.x -= 0.01;
-  if (keys.left) spaceship.rotation.z += 0.03;
-  if (keys.right) spaceship.rotation.z -= 0.03;
-  if (keys.turnleft) spaceship.rotation.y += 0.03;
-  if (keys.turnright) spaceship.rotation.y -= 0.03;
+  if (keys.forward) spaceship.rotation.x += 0.01 * GetPlayerSpeed();
+  if (keys.backward) spaceship.rotation.x -= 0.01 * GetPlayerSpeed();
+  if (keys.left) spaceship.rotation.z += 0.03 * GetPlayerSpeed();
+  if (keys.right) spaceship.rotation.z -= 0.03 * GetPlayerSpeed();
+  if (keys.turnleft) spaceship.rotation.y += 0.03 * GetPlayerSpeed();
+  if (keys.turnright) spaceship.rotation.y -= 0.03 * GetPlayerSpeed();
 
   if (keys.accelerate) {
-    spaceship.position.addScaledVector(direction, 0.3);
+    spaceship.position.addScaledVector(direction, 0.3 * GetPlayerSpeed());
   }
+
 
     if (keys.shoot) {
     CreateProjectile(scene);
